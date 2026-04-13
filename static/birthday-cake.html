@@ -1,247 +1,119 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
   <title>🎂 Feliz Cumpleaños</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@700&display=swap');
 
-    :root {
-      --bg: #1a0a2e;
-      --accent: #ff6fb7;
-      --gold: #ffd166;
-      --mint: #06d6a0;
-      --text: #fff0f8;
-      --glow: rgba(255, 111, 183, 0.6);
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin:0; padding:0; box-sizing:border-box; }
 
     body {
-      background: var(--bg);
+      background: #1a0a2e;
       font-family: 'Nunito', sans-serif;
-      color: var(--text);
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
       overflow: hidden;
-      position: relative;
     }
 
-    /* Stars background */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(ellipse at 20% 50%, rgba(120, 40, 200, 0.15) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 20%, rgba(255, 111, 183, 0.1) 0%, transparent 50%);
-      pointer-events: none;
-    }
-
-    .stars {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-    }
-
+    .stars { position:fixed; inset:0; pointer-events:none; z-index:0; }
     .star {
-      position: absolute;
-      background: white;
-      border-radius: 50%;
-      animation: twinkle var(--d, 3s) ease-in-out infinite;
-      animation-delay: var(--delay, 0s);
+      position:absolute; background:white; border-radius:50%;
+      animation: twinkle var(--d,3s) ease-in-out infinite var(--delay,0s);
     }
-
     @keyframes twinkle {
-      0%, 100% { opacity: 0.2; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.3); }
+      0%,100%{opacity:0.15;transform:scale(1);}
+      50%{opacity:1;transform:scale(1.4);}
     }
 
     .container {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      max-width: 420px;
-      padding: 24px 16px;
-      gap: 16px;
+      position:relative; z-index:1;
+      display:flex; flex-direction:column;
+      align-items:center; gap:18px;
+      padding:24px 16px; width:100%; max-width:400px;
     }
 
     h1 {
       font-family: 'Pacifico', cursive;
-      font-size: clamp(1.8rem, 7vw, 2.4rem);
-      color: var(--accent);
-      text-shadow: 0 0 20px var(--glow), 0 0 40px var(--glow);
-      letter-spacing: 1px;
-      text-align: center;
-      animation: pulse-text 3s ease-in-out infinite;
+      font-size: clamp(1.7rem, 7vw, 2.3rem);
+      color: #ff6fb7;
+      text-shadow: 0 0 20px rgba(255,111,183,0.8), 0 0 40px rgba(255,111,183,0.4);
+      text-align:center;
+      animation: pulse 3s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100%{text-shadow:0 0 20px rgba(255,111,183,0.8),0 0 40px rgba(255,111,183,0.4);}
+      50%{text-shadow:0 0 30px rgba(255,111,183,1),0 0 60px rgba(255,111,183,0.7);}
     }
 
-    @keyframes pulse-text {
-      0%, 100% { text-shadow: 0 0 20px var(--glow), 0 0 40px var(--glow); }
-      50% { text-shadow: 0 0 30px var(--glow), 0 0 60px var(--glow), 0 0 80px var(--glow); }
+    #cake-canvas {
+      width: 100%; max-width: 340px;
+      aspect-ratio: 1/1;
+      border-radius: 20px;
+      border: 1px solid rgba(255,111,183,0.25);
+      box-shadow: 0 0 40px rgba(255,111,183,0.2), 0 20px 60px rgba(0,0,0,0.5);
+      background: #0d0520;
+      display: block;
     }
 
-    #canvas-wrapper {
-      width: 100%;
-      max-width: 340px;
-      aspect-ratio: 1 / 1;
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow:
-        0 0 40px rgba(255, 111, 183, 0.2),
-        0 20px 60px rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255, 111, 183, 0.2);
-      background: radial-gradient(ellipse at center bottom, #2d0a4e 0%, #0d0520 100%);
-    }
-
-    #canvas-wrapper canvas {
-      width: 100% !important;
-      height: 100% !important;
-    }
-
-    /* Status hidden */
-    #status { display: none; }
-
-
-
-    /* Main button */
     #light-btn {
-      width: 100%;
-      padding: 16px;
-      border-radius: 16px;
-      border: none;
-      cursor: pointer;
-      font-family: 'Nunito', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s ease;
-      background: linear-gradient(135deg, #ff6fb7, #c44dff);
-      color: white;
-      box-shadow: 0 8px 32px rgba(255, 111, 183, 0.4), 0 0 0 0 var(--glow);
+      width:100%; padding:15px; border-radius:14px; border:none;
+      cursor:pointer; font-family:'Nunito',sans-serif;
+      font-size:1.05rem; font-weight:700;
+      background: linear-gradient(135deg,#ff6fb7,#c44dff);
+      color:white; box-shadow:0 8px 30px rgba(255,111,183,0.4);
+      transition: all 0.3s; position:relative; overflow:hidden;
     }
-
-    #light-btn:not(:disabled):hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 40px rgba(255, 111, 183, 0.6);
-    }
-
-    #light-btn:not(:disabled):active {
-      transform: translateY(0px) scale(0.97);
-    }
-
-    #light-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
+    #light-btn:hover { transform:translateY(-2px); }
+    #light-btn:active { transform:scale(0.97); }
+    #light-btn:disabled { opacity:0.55; cursor:not-allowed; }
     #light-btn.lit {
-      background: linear-gradient(135deg, #ffd166, #ff9a3c);
-      box-shadow: 0 8px 32px rgba(255, 166, 0, 0.5), 0 0 60px rgba(255, 200, 50, 0.2);
+      background: linear-gradient(135deg,#ffd166,#ff9a3c);
       animation: glow-btn 2s ease-in-out infinite;
     }
-
     @keyframes glow-btn {
-      0%, 100% { box-shadow: 0 8px 32px rgba(255, 166, 0, 0.5), 0 0 40px rgba(255, 200, 50, 0.15); }
-      50% { box-shadow: 0 8px 32px rgba(255, 166, 0, 0.7), 0 0 70px rgba(255, 200, 50, 0.35); }
+      0%,100%{box-shadow:0 8px 30px rgba(255,166,0,0.5);}
+      50%{box-shadow:0 8px 30px rgba(255,166,0,0.8),0 0 60px rgba(255,200,50,0.3);}
     }
 
-    /* Ripple */
     .ripple {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.3);
-      transform: scale(0);
-      animation: ripple-anim 0.6s linear;
-      pointer-events: none;
+      position:absolute; border-radius:50%;
+      background:rgba(255,255,255,0.35); transform:scale(0);
+      animation:rip 0.6s linear; pointer-events:none;
     }
+    @keyframes rip { to{transform:scale(4);opacity:0;} }
 
-    @keyframes ripple-anim {
-      to { transform: scale(4); opacity: 0; }
-    }
-
-    /* Confetti */
     .confetti-piece {
-      position: fixed;
-      width: 10px;
-      height: 10px;
-      top: -20px;
-      animation: confetti-fall var(--duration, 3s) ease-in forwards;
-      animation-delay: var(--delay, 0s);
-      z-index: 999;
-      pointer-events: none;
-      border-radius: var(--radius, 2px);
+      position:fixed; top:-20px; pointer-events:none; z-index:999;
+      animation: cfall var(--d,3s) ease-in var(--dl,0s) forwards;
+      border-radius:var(--r,2px);
+    }
+    @keyframes cfall {
+      0%{transform:translateY(0) rotate(0);opacity:1;}
+      100%{transform:translateY(110vh) rotate(720deg) translateX(var(--dx,0px));opacity:0;}
     }
 
-    @keyframes confetti-fall {
-      0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 1; }
-      100% { transform: translateY(110vh) rotate(720deg) translateX(var(--drift, 0px)); opacity: 0; }
-    }
-
-
-
-    /* Popup */
     #popup-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(10, 0, 20, 0.75);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      animation: fade-in 0.5s ease;
+      display:none; position:fixed; inset:0;
+      background:rgba(10,0,20,0.8); z-index:1000;
+      align-items:center; justify-content:center; cursor:pointer;
     }
-    #popup-overlay.visible {
-      display: flex;
-    }
-    @keyframes fade-in {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
+    #popup-overlay.show { display:flex; animation:fi 0.4s ease; }
+    @keyframes fi{from{opacity:0;}to{opacity:1;}}
     .popup-card {
-      background: linear-gradient(145deg, #2d0a4e, #1a0a2e);
-      border: 1px solid rgba(255, 111, 183, 0.35);
-      border-radius: 24px;
-      padding: 36px 28px;
-      max-width: 300px;
-      width: 88%;
-      text-align: center;
-      box-shadow: 0 0 60px rgba(255, 111, 183, 0.2), 0 20px 60px rgba(0,0,0,0.6);
-      animation: pop-up 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-      cursor: default;
+      background:linear-gradient(145deg,#2d0a4e,#1a0a2e);
+      border:1px solid rgba(255,111,183,0.4);
+      border-radius:22px; padding:36px 28px;
+      max-width:290px; width:88%; text-align:center;
+      box-shadow:0 0 60px rgba(255,111,183,0.25);
+      animation:pu 0.45s cubic-bezier(0.34,1.56,0.64,1); cursor:default;
     }
-    @keyframes pop-up {
-      from { transform: scale(0.7); opacity: 0; }
-      to   { transform: scale(1);   opacity: 1; }
-    }
-    .popup-emoji {
-      font-size: 2.5rem;
-      margin-bottom: 12px;
-    }
-    .popup-text {
-      font-family: 'Nunito', sans-serif;
-      font-size: 1rem;
-      line-height: 1.7;
-      color: #fff0f8;
-      margin: 0 0 20px;
-    }
-    .popup-hint {
-      font-size: 0.72rem;
-      color: rgba(255,255,255,0.3);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
+    @keyframes pu{from{transform:scale(0.65);opacity:0;}to{transform:scale(1);opacity:1;}}
+    .popup-emoji{font-size:2.5rem;margin-bottom:12px;}
+    .popup-text{font-size:1rem;line-height:1.75;color:#fff0f8;margin-bottom:20px;}
+    .popup-hint{font-size:0.7rem;color:rgba(255,255,255,0.28);letter-spacing:1px;text-transform:uppercase;}
   </style>
 </head>
 <body>
@@ -250,365 +122,363 @@
 
 <div class="container">
   <h1>¡Feliz Cumpleaños! 🎉</h1>
-
-  <div id="canvas-wrapper"></div>
-
-  <button id="light-btn" onclick="handleLightCandle(event)">
-    🕯️ ¡Encender la vela!
-  </button>
+  <canvas id="cake-canvas"></canvas>
+  <button id="light-btn" onclick="handleLight(event)">🕯️ ¡Encender la vela!</button>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<div id="popup-overlay" onclick="closePopup()">
+  <div class="popup-card" onclick="event.stopPropagation()">
+    <div class="popup-emoji">💖</div>
+    <p class="popup-text">Hace tantos años te conocí y ahora estamos viviendo esto juntos.</p>
+    <p class="popup-hint" onclick="closePopup()" style="cursor:pointer;">toca para cerrar</p>
+  </div>
+</div>
+
 <script>
-// ─── Stars background ───────────────────────────────────────────────
-const starsContainer = document.getElementById('stars');
-for (let i = 0; i < 80; i++) {
-  const s = document.createElement('div');
-  s.className = 'star';
-  const size = Math.random() * 2.5 + 0.5;
-  s.style.cssText = `
-    width:${size}px; height:${size}px;
-    left:${Math.random()*100}%;
-    top:${Math.random()*100}%;
-    --d:${2+Math.random()*4}s;
-    --delay:${Math.random()*5}s;
-  `;
-  starsContainer.appendChild(s);
+// Stars
+const starsEl = document.getElementById('stars');
+for(let i=0;i<80;i++){
+  const s=document.createElement('div'); s.className='star';
+  const sz=Math.random()*2.5+0.5;
+  s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*4}s;--delay:${Math.random()*5}s;`;
+  starsEl.appendChild(s);
 }
 
-// ─── Three.js Scene ──────────────────────────────────────────────────
-const wrapper = document.getElementById('canvas-wrapper');
-const W = wrapper.clientWidth, H = wrapper.clientHeight;
+// Canvas setup
+const canvas = document.getElementById('cake-canvas');
+const ctx = canvas.getContext('2d');
 
-const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-renderer.setSize(W, H);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-wrapper.appendChild(renderer.domElement);
-
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(45, W / H, 0.1, 100);
-camera.position.set(0, 3.5, 8);
-camera.lookAt(0, 0.5, 0);
-
-// Ambient light
-const ambient = new THREE.AmbientLight(0x2a1040, 1.5);
-scene.add(ambient);
-
-// Subtle directional light
-const dirLight = new THREE.DirectionalLight(0xffc8e8, 0.5);
-dirLight.position.set(5, 10, 5);
-scene.add(dirLight);
-
-// ── Flame point light (initially off) ──
-const flameLight = new THREE.PointLight(0xff9a20, 0, 4);
-flameLight.position.set(0, 3.05, 0);
-flameLight.castShadow = true;
-scene.add(flameLight);
-
-// ── TABLE ──
-const tableGeo = new THREE.CylinderGeometry(4, 4, 0.2, 32);
-const tableMat = new THREE.MeshStandardMaterial({ color: 0x3d1a6b, roughness: 0.6, metalness: 0.1 });
-const table = new THREE.Mesh(tableGeo, tableMat);
-table.position.y = -0.7;
-table.receiveShadow = true;
-scene.add(table);
-
-// ── CAKE base (bottom tier) ──
-const cakeBot = new THREE.Mesh(
-  new THREE.CylinderGeometry(1.5, 1.5, 0.9, 48),
-  new THREE.MeshStandardMaterial({ color: 0xff6fb7, roughness: 0.5 })
-);
-cakeBot.position.y = -0.15;
-cakeBot.castShadow = true;
-cakeBot.receiveShadow = true;
-scene.add(cakeBot);
-
-// Frosting bottom rim
-const frostBot = new THREE.Mesh(
-  new THREE.TorusGeometry(1.5, 0.12, 16, 60),
-  new THREE.MeshStandardMaterial({ color: 0xffeef8, roughness: 0.4 })
-);
-frostBot.position.y = 0.3;
-scene.add(frostBot);
-
-// ── CAKE top tier ──
-const cakeTop = new THREE.Mesh(
-  new THREE.CylinderGeometry(0.95, 0.95, 0.8, 48),
-  new THREE.MeshStandardMaterial({ color: 0xc44dff, roughness: 0.5 })
-);
-cakeTop.position.y = 0.9;
-cakeTop.castShadow = true;
-scene.add(cakeTop);
-
-// Frosting top rim
-const frostTop = new THREE.Mesh(
-  new THREE.TorusGeometry(0.95, 0.1, 16, 60),
-  new THREE.MeshStandardMaterial({ color: 0xffeef8, roughness: 0.4 })
-);
-frostTop.position.y = 1.3;
-scene.add(frostTop);
-
-// Top flat frosting
-const topFrost = new THREE.Mesh(
-  new THREE.CylinderGeometry(0.95, 0.95, 0.05, 48),
-  new THREE.MeshStandardMaterial({ color: 0xffeef8, roughness: 0.4 })
-);
-topFrost.position.y = 1.32;
-scene.add(topFrost);
-
-// ── DECORATIONS: small balls on bottom tier ──
-const ballColors = [0xffd166, 0x06d6a0, 0xff6fb7, 0xc44dff, 0xff9a3c];
-for (let i = 0; i < 10; i++) {
-  const angle = (i / 10) * Math.PI * 2;
-  const ball = new THREE.Mesh(
-    new THREE.SphereGeometry(0.1, 16, 16),
-    new THREE.MeshStandardMaterial({ color: ballColors[i % 5], roughness: 0.3, metalness: 0.3 })
-  );
-  ball.position.set(Math.cos(angle) * 1.5, 0.3, Math.sin(angle) * 1.5);
-  scene.add(ball);
+function resize(){
+  const size = Math.min(canvas.parentElement.clientWidth, 340);
+  canvas.width = size;
+  canvas.height = size;
 }
+resize();
+window.addEventListener('resize', resize);
 
-// Balls on top tier
-for (let i = 0; i < 6; i++) {
-  const angle = (i / 6) * Math.PI * 2;
-  const ball = new THREE.Mesh(
-    new THREE.SphereGeometry(0.07, 16, 16),
-    new THREE.MeshStandardMaterial({ color: ballColors[(i + 2) % 5], roughness: 0.3, metalness: 0.3 })
-  );
-  ball.position.set(Math.cos(angle) * 0.95, 1.3, Math.sin(angle) * 0.95);
-  scene.add(ball);
-}
-
-// ── CANDLE ──
-const candleMat = new THREE.MeshStandardMaterial({ color: 0xfff0a0, roughness: 0.6 });
-const candleBody = new THREE.Mesh(
-  new THREE.CylinderGeometry(0.1, 0.1, 0.7, 20),
-  candleMat
-);
-candleBody.position.y = 1.72;
-scene.add(candleBody);
-
-// Candle top (melted wax)
-const candleTop = new THREE.Mesh(
-  new THREE.CylinderGeometry(0.1, 0.1, 0.03, 20),
-  new THREE.MeshStandardMaterial({ color: 0xfffacd, roughness: 0.7 })
-);
-candleTop.position.y = 2.07;
-scene.add(candleTop);
-
-// ── WICK ──
-const wickGeo = new THREE.CylinderGeometry(0.008, 0.008, 0.18, 8);
-const wickMat = new THREE.MeshStandardMaterial({ color: 0x1a0a00 });
-const wick = new THREE.Mesh(wickGeo, wickMat);
-wick.position.y = 2.16;
-scene.add(wick);
-
-// ── FLAME (hidden initially) ──
-const flameGroup = new THREE.Group();
-flameGroup.position.set(0, 2.29, 0);
-flameGroup.visible = false;
-scene.add(flameGroup);
-
-// Outer flame
-const flameGeo = new THREE.ConeGeometry(0.09, 0.32, 12, 1, true);
-const flameMat = new THREE.MeshStandardMaterial({
-  color: 0xff7700,
-  emissive: 0xff5500,
-  emissiveIntensity: 2,
-  transparent: true,
-  opacity: 0.92,
-  side: THREE.DoubleSide,
-  depthWrite: false
-});
-const flame = new THREE.Mesh(flameGeo, flameMat);
-flameGroup.add(flame);
-
-// Inner flame (brighter core)
-const innerFlameMat = new THREE.MeshStandardMaterial({
-  color: 0xffff80,
-  emissive: 0xffee00,
-  emissiveIntensity: 3,
-  transparent: true,
-  opacity: 0.85,
-  side: THREE.DoubleSide,
-  depthWrite: false
-});
-const innerFlame = new THREE.Mesh(
-  new THREE.ConeGeometry(0.045, 0.2, 12, 1, true),
-  innerFlameMat
-);
-innerFlame.position.y = -0.03;
-flameGroup.add(innerFlame);
-
-// ── SPRINKLES on top tier ──
-const sprinkleColors = [0xffd166, 0x06d6a0, 0xff6fb7, 0xc44dff];
-for (let i = 0; i < 18; i++) {
-  const r = Math.random() * 0.75;
-  const a = Math.random() * Math.PI * 2;
-  const sprinkle = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.02, 0.02, 0.1, 8),
-    new THREE.MeshStandardMaterial({ color: sprinkleColors[i % 4], roughness: 0.4 })
-  );
-  sprinkle.position.set(Math.cos(a) * r, 1.36, Math.sin(a) * r);
-  sprinkle.rotation.z = Math.random() * Math.PI;
-  sprinkle.rotation.x = Math.random() * Math.PI;
-  scene.add(sprinkle);
-}
-
-// ─── Animation State ─────────────────────────────────────────────────
-let candleLit = false;
-let flameLightTarget = 0;
+// State
+let lit = false;
 let flameTime = 0;
+let flickerOffset = [Math.random()*10, Math.random()*10];
 
-function animate() {
-  requestAnimationFrame(animate);
+// ── DRAW FUNCTIONS ──
 
-  // Smooth light intensity
-  flameLight.intensity += (flameLightTarget - flameLight.intensity) * 0.05;
+function drawBackground(){
+  const grad = ctx.createRadialGradient(canvas.width/2, canvas.height, 10, canvas.width/2, canvas.height/2, canvas.height);
+  grad.addColorStop(0,'#2d0a4e');
+  grad.addColorStop(1,'#0d0520');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+}
 
-  if (candleLit && flameGroup.visible) {
+function drawTable(cx, tableY){
+  // Table surface
+  ctx.fillStyle = '#3d1a6b';
+  ctx.beginPath();
+  ctx.ellipse(cx, tableY+10, canvas.width*0.48, 18, 0, 0, Math.PI*2);
+  ctx.fill();
+  // Shadow under cake
+  ctx.fillStyle = 'rgba(0,0,0,0.35)';
+  ctx.beginPath();
+  ctx.ellipse(cx, tableY+6, canvas.width*0.38, 12, 0, 0, Math.PI*2);
+  ctx.fill();
+}
+
+function drawCakeTier(cx, y, w, h, color, frostColor){
+  const rx = w/2;
+  // Body
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.ellipse(cx, y, rx, rx*0.22, 0, 0, Math.PI*2);
+  ctx.fill();
+  ctx.fillRect(cx-rx, y, rx*2, h);
+  ctx.beginPath();
+  ctx.ellipse(cx, y+h, rx, rx*0.22, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // Frosting drip on top
+  ctx.fillStyle = frostColor;
+  ctx.beginPath();
+  ctx.ellipse(cx, y, rx, rx*0.22, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // Side frosting drips
+  const drips = 7;
+  for(let i=0;i<drips;i++){
+    const dx = cx - rx + (i+0.5)*(rx*2/drips);
+    const dh = 10 + Math.sin(i*1.7)*6;
+    ctx.fillStyle = frostColor;
+    ctx.beginPath();
+    ctx.ellipse(dx, y+dh, 8, 5, 0, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillRect(dx-8, y, 16, dh);
+  }
+}
+
+function drawDecorations(cx, y, r){
+  const colors = ['#ffd166','#06d6a0','#ff6fb7','#c44dff','#ff9a3c'];
+  const count = 10;
+  for(let i=0;i<count;i++){
+    const a = (i/count)*Math.PI*2;
+    const bx = cx + Math.cos(a)*r;
+    const by = y + Math.sin(a)*(r*0.18);
+    ctx.fillStyle = colors[i%colors.length];
+    ctx.beginPath();
+    ctx.arc(bx, by, 5, 0, Math.PI*2);
+    ctx.fill();
+  }
+}
+
+function drawSprinkles(cx, topY, r){
+  const colors = ['#ffd166','#06d6a0','#ff6fb7','#c44dff'];
+  for(let i=0;i<16;i++){
+    const a = Math.random()*Math.PI*2;
+    const dist = Math.random()*r*0.8;
+    const sx = cx + Math.cos(a)*dist;
+    const sy = topY - 4 + Math.sin(a)*dist*0.2;
+    ctx.save();
+    ctx.translate(sx, sy);
+    ctx.rotate(Math.random()*Math.PI);
+    ctx.fillStyle = colors[i%colors.length];
+    ctx.fillRect(-5, -2, 10, 4);
+    ctx.restore();
+  }
+}
+
+function drawNumberCandle(cx, topY, number, color, index){
+  const cw = 28, ch = 80;
+  const x = cx - cw/2;
+  const y = topY - ch;
+
+  // Candle shadow
+  ctx.fillStyle = 'rgba(0,0,0,0.2)';
+  ctx.beginPath();
+  ctx.ellipse(cx, topY, cw/2, 6, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // Candle body gradient
+  const bodyGrad = ctx.createLinearGradient(x, y, x+cw, y);
+  bodyGrad.addColorStop(0, shadeColor(color, -30));
+  bodyGrad.addColorStop(0.3, color);
+  bodyGrad.addColorStop(0.7, lightenColor(color, 30));
+  bodyGrad.addColorStop(1, shadeColor(color, -20));
+
+  // Rounded rect candle
+  ctx.fillStyle = bodyGrad;
+  roundRect(ctx, x, y, cw, ch, 6);
+  ctx.fill();
+
+  // Wax drip highlight
+  ctx.fillStyle = lightenColor(color, 50);
+  ctx.beginPath();
+  ctx.ellipse(cx, y, cw/2, 5, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // White band in middle
+  const bandY = y + ch*0.35;
+  ctx.fillStyle = 'rgba(255,255,255,0.9)';
+  roundRect(ctx, x, bandY, cw, ch*0.3, 3);
+  ctx.fill();
+
+  // Number on white band
+  ctx.save();
+  ctx.font = `bold ${ch*0.28}px 'Pacifico', cursive`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillStyle = color;
+  ctx.shadowColor = color;
+  ctx.shadowBlur = 6;
+  ctx.fillText(number, cx, bandY + ch*0.15);
+  ctx.restore();
+
+  // Wick
+  ctx.strokeStyle = '#1a0a00';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(cx, y);
+  ctx.lineTo(cx, y - 12);
+  ctx.stroke();
+
+  return { wx: cx, wy: y - 12 }; // wick tip
+}
+
+function drawFlame(wx, wy, t, off){
+  const flicker = 1 + 0.2*Math.sin(t*8+off) + 0.1*Math.sin(t*14+off);
+  const sway = 3*Math.sin(t*5+off);
+  const fw = 14*flicker, fh = 34*flicker;
+
+  // Glow
+  const glow = ctx.createRadialGradient(wx+sway*0.4, wy-fh*0.3, 2, wx, wy, fw*2.5);
+  glow.addColorStop(0,'rgba(255,200,50,0.5)');
+  glow.addColorStop(0.4,'rgba(255,100,0,0.2)');
+  glow.addColorStop(1,'rgba(255,50,0,0)');
+  ctx.fillStyle = glow;
+  ctx.beginPath();
+  ctx.ellipse(wx+sway*0.4, wy-fh*0.3, fw*2.5, fh*1.6, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // Outer flame
+  ctx.beginPath();
+  ctx.moveTo(wx, wy);
+  ctx.bezierCurveTo(wx-fw, wy-fh*0.4, wx-fw*0.5+sway, wy-fh, wx+sway*0.5, wy-fh);
+  ctx.bezierCurveTo(wx+fw*0.5+sway, wy-fh, wx+fw, wy-fh*0.4, wx, wy);
+  const og = ctx.createLinearGradient(wx, wy, wx+sway*0.5, wy-fh);
+  og.addColorStop(0,'#ff3300'); og.addColorStop(0.45,'#ff7700');
+  og.addColorStop(0.85,'#ffcc00'); og.addColorStop(1,'#ffff99');
+  ctx.fillStyle = og; ctx.fill();
+
+  // Inner core
+  ctx.beginPath();
+  ctx.moveTo(wx, wy-3);
+  ctx.bezierCurveTo(wx-fw*0.35,wy-fh*0.45, wx-fw*0.15+sway*0.5,wy-fh*0.88, wx+sway*0.3,wy-fh*0.88);
+  ctx.bezierCurveTo(wx+fw*0.15+sway*0.5,wy-fh*0.88, wx+fw*0.35,wy-fh*0.45, wx,wy-3);
+  const ig = ctx.createLinearGradient(wx, wy-3, wx+sway*0.3, wy-fh*0.88);
+  ig.addColorStop(0,'#ffbb00'); ig.addColorStop(1,'#ffffff');
+  ctx.fillStyle = ig; ctx.fill();
+}
+
+function drawAmbientGlow(cx, cy){
+  // Warm light spreading from candles when lit
+  const glow = ctx.createRadialGradient(cx, cy, 10, cx, cy, canvas.width*0.6);
+  const alpha = 0.12 + 0.04*Math.sin(flameTime*3);
+  glow.addColorStop(0,`rgba(255,160,50,${alpha})`);
+  glow.addColorStop(1,'rgba(255,100,0,0)');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+}
+
+// Helpers
+function roundRect(ctx, x, y, w, h, r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.lineTo(x+w-r,y);
+  ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r);
+  ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h);
+  ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r);
+  ctx.quadraticCurveTo(x,y,x+r,y);
+  ctx.closePath();
+}
+
+function shadeColor(hex, amt){
+  const n=parseInt(hex.replace('#',''),16);
+  const r=Math.min(255,Math.max(0,((n>>16)&0xff)+amt));
+  const g=Math.min(255,Math.max(0,((n>>8)&0xff)+amt));
+  const b=Math.min(255,Math.max(0,(n&0xff)+amt));
+  return `rgb(${r},${g},${b})`;
+}
+function lightenColor(hex, amt){ return shadeColor(hex, amt); }
+
+// ── MAIN DRAW LOOP ──
+let sprinkleData = [];
+function initSprinkles(cx, topY, r){
+  sprinkleData = [];
+  for(let i=0;i<18;i++){
+    const a = Math.random()*Math.PI*2;
+    const dist = Math.random()*r*0.78;
+    sprinkleData.push({
+      x: cx+Math.cos(a)*dist,
+      y: topY-4+Math.sin(a)*dist*0.18,
+      rot: Math.random()*Math.PI,
+      color: ['#ffd166','#06d6a0','#ff6fb7','#c44dff'][i%4]
+    });
+  }
+}
+
+function draw(){
+  const W = canvas.width, H = canvas.height;
+  const cx = W/2;
+
+  drawBackground();
+
+  // Layout
+  const tableY   = H * 0.82;
+  const bot_y    = H * 0.45;  // top of bottom tier
+  const bot_h    = H * 0.26;
+  const bot_w    = W * 0.72;
+  const top_y    = bot_y - H*0.02;
+  const top_h    = H * 0.22;
+  const top_w    = W * 0.46;
+  const cakeTopY = top_y - H*0.01; // surface of top tier
+
+  // Init sprinkles once
+  if(sprinkleData.length===0) initSprinkles(cx, cakeTopY, top_w/2);
+
+  // Warm glow overlay when lit
+  if(lit) drawAmbientGlow(cx, cakeTopY - top_h*0.3);
+
+  drawTable(cx, tableY);
+  drawCakeTier(cx, bot_y, bot_w, bot_h, '#ff6fb7', '#ffeef8');
+  drawDecorations(cx, bot_y+bot_h*0.5, bot_w*0.48);
+  drawCakeTier(cx, top_y, top_w, top_h, '#c44dff', '#f0e0ff');
+
+  // Sprinkles on top tier surface
+  sprinkleData.forEach(sp=>{
+    ctx.save(); ctx.translate(sp.x, sp.y); ctx.rotate(sp.rot);
+    ctx.fillStyle = sp.color;
+    ctx.fillRect(-6,-2,12,4);
+    ctx.restore();
+  });
+
+  // Two candles — "2" and "7" — side by side on top tier
+  const gap = top_w * 0.28;
+  const c2 = drawNumberCandle(cx - gap, cakeTopY, '2', '#ffd166', 0);
+  const c7 = drawNumberCandle(cx + gap, cakeTopY, '7', '#ff6fb7', 1);
+
+  // Flames
+  if(lit){
     flameTime += 0.05;
-    // Flicker flame
-    const flicker = 1 + 0.15 * Math.sin(flameTime * 7.3) + 0.08 * Math.sin(flameTime * 13.1);
-    flameGroup.scale.set(flicker * 0.9, flicker, flicker * 0.9);
-    flameGroup.position.x = 0.01 * Math.sin(flameTime * 4.7);
-    // Flicker light
-    flameLight.intensity = (1.8 + 0.4 * Math.sin(flameTime * 9) + 0.2 * Math.sin(flameTime * 17)) * flameLightTarget;
-    flameLight.color.setHSL(0.08 + 0.02 * Math.sin(flameTime * 3), 1, 0.6);
+    drawFlame(c2.wx, c2.wy, flameTime, flickerOffset[0]);
+    drawFlame(c7.wx, c7.wy, flameTime, flickerOffset[1]);
   }
 
-  // Gentle cake rotation
-  const group = [cakeBot, cakeTop, frostBot, frostTop, topFrost, candleBody, candleTop, wick, flameGroup];
-  // Rotate whole scene slowly... via camera orbit
-  const t = Date.now() * 0.0003;
-  camera.position.x = Math.sin(t) * 0.8;
-  camera.position.z = 8 + Math.cos(t) * 0.3;
-  camera.lookAt(0, 0.8, 0);
-
-  renderer.render(scene, camera);
+  requestAnimationFrame(draw);
 }
-animate();
 
-// ─── Responsive resize ───────────────────────────────────────────────
-window.addEventListener('resize', () => {
-  const w = wrapper.clientWidth;
-  const h = wrapper.clientHeight;
-  renderer.setSize(w, h);
-  camera.aspect = w / h;
-  camera.updateProjectionMatrix();
-});
+draw();
 
-// ─── Config — cambia esta URL por la tuya ────────────────────────────
-const SERVER_URL = 'https://tu-servidor.com/api/endpoint';
-
-// ─── Tu música — pon aquí la ruta a tu pista ─────────────────────────
-// Ejemplo mismo folder:   'cancion.mp3'
-// Ejemplo subcarpeta:     'musica/cancion.mp3'
+// ── Interaction ──
 const MI_MUSICA = 'song.mp3';
-
-// ─── Light candle + silent GET request ──────────────────────────────
 let isLit = false;
 
-async function handleLightCandle(e) {
-  if (isLit) return;
-
+function handleLight(e){
+  if(isLit) return;
   const btn = document.getElementById('light-btn');
-
-  // Ripple effect
   const rect = btn.getBoundingClientRect();
-  const ripple = document.createElement('span');
-  ripple.className = 'ripple';
-  const size = Math.max(rect.width, rect.height);
-  ripple.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px`;
-  btn.appendChild(ripple);
-  setTimeout(() => ripple.remove(), 600);
-
-  // Silent GET — fire and forget, sin mostrar nada al usuario
-  fetch(SERVER_URL, { method: 'GET', mode: 'cors' }).catch(() => {});
-
-  // Light the candle immediately
-  isLit = true;
-  lightCandle();
+  const rip = document.createElement('span');
+  rip.className = 'ripple';
+  const sz = Math.max(rect.width, rect.height);
+  rip.style.cssText = `width:${sz}px;height:${sz}px;left:${e.clientX-rect.left-sz/2}px;top:${e.clientY-rect.top-sz/2}px`;
+  btn.appendChild(rip);
+  setTimeout(()=>rip.remove(),600);
+  isLit = true; lit = true;
   btn.classList.add('lit');
   btn.innerHTML = '🔥 ¡Vela encendida!';
   btn.disabled = true;
+  new Audio(MI_MUSICA).play().catch(()=>{});
+  setTimeout(showPopup, 1600);
+  setTimeout(()=>{ launchConfetti(); setInterval(launchConfetti,1800); }, 400);
 }
 
-function lightCandle() {
-  candleLit = true;
-  flameGroup.visible = true;
-  flameLightTarget = 1.8;
-  flameLight.position.set(0, 2.4, 0);
-  // Wick color change
-  wickMat.color.setHex(0xff4400);
-  // Música 🎵
-  playBirthdayMusic();
-  // Popup
-  setTimeout(showPopup, 1200);
-  // Confetti infinito!
-  setTimeout(() => {
-    launchConfetti();
-    setInterval(launchConfetti, 1800);
-  }, 300);
-}
-
-// ─── Reproducir música ───────────────────────────────────────────────
-function playBirthdayMusic() {
-  const audio = new Audio(MI_MUSICA);
-  audio.volume = 1.0;
-  audio.play().catch(() => {});
-}
-
-// ─── Confetti ────────────────────────────────────────────────────────
-let confettiCount = 60;
-const CONFETTI_MIN = 1;
-
-function launchConfetti() {
-  const colors = ['#ff6fb7', '#ffd166', '#06d6a0', '#c44dff', '#ff9a3c', '#fff'];
-  const shapes = ['2px', '50%', '0'];
-  for (let i = 0; i < confettiCount; i++) {
-    const c = document.createElement('div');
-    c.className = 'confetti-piece';
-    const size = 6 + Math.random() * 8;
-    c.style.cssText = `
-      left: ${Math.random() * 100}vw;
-      width: ${size}px;
-      height: ${size * (0.4 + Math.random() * 0.8)}px;
-      background: ${colors[Math.floor(Math.random() * colors.length)]};
-      --duration: ${2 + Math.random() * 2.5}s;
-      --delay: ${Math.random() * 1.5}s;
-      --drift: ${(Math.random() - 0.5) * 200}px;
-      --radius: ${shapes[Math.floor(Math.random() * shapes.length)]};
-    `;
+let confetti = 60;
+function launchConfetti(){
+  const clrs=['#ff6fb7','#ffd166','#06d6a0','#c44dff','#ff9a3c','#fff'];
+  const shps=['2px','50%','0'];
+  for(let i=0;i<confetti;i++){
+    const c=document.createElement('div'); c.className='confetti-piece';
+    const s=6+Math.random()*8;
+    c.style.cssText=`left:${Math.random()*100}vw;width:${s}px;height:${s*(0.4+Math.random()*0.8)}px;background:${clrs[Math.floor(Math.random()*clrs.length)]};--d:${2+Math.random()*2.5}s;--dl:${Math.random()*1.5}s;--dx:${(Math.random()-0.5)*200}px;--r:${shps[Math.floor(Math.random()*shps.length)]};`;
     document.body.appendChild(c);
-    const dur = (parseFloat(c.style.getPropertyValue('--duration')) + parseFloat(c.style.getPropertyValue('--delay'))) * 1000;
-    setTimeout(() => c.remove(), dur + 500);
+    setTimeout(()=>c.remove(),(parseFloat(c.style.getPropertyValue('--d'))+parseFloat(c.style.getPropertyValue('--dl')))*1000+500);
   }
-  // Reduce gradualmente hasta el mínimo y nunca para
-  if (confettiCount > CONFETTI_MIN) {
-    confettiCount = Math.max(CONFETTI_MIN, Math.floor(confettiCount * 0.75));
-  }
-  setTimeout(launchConfetti, 20000);
+  if(confetti>1) confetti=Math.max(1,Math.floor(confetti*0.75));
+  setTimeout(launchConfetti,20000);
 }
 
-// ─── Popup ───────────────────────────────────────────────────────────
-function showPopup() {
-  document.getElementById('popup-overlay').classList.add('visible');
-}
-
-function closePopup(e) {
-  document.getElementById('popup-overlay').classList.remove('visible');
-}
+function showPopup(){ document.getElementById('popup-overlay').classList.add('show'); }
+function closePopup(){ document.getElementById('popup-overlay').classList.remove('show'); }
 </script>
-
-<div id="popup-overlay" onclick="closePopup(event)">
-  <div class="popup-card" onclick="event.stopPropagation()">
-    <div class="popup-emoji">💖</div>
-    <p class="popup-text" id="popup-message">Hace tantos años te conocí y ahora estamos viviendo esto juntos.</p>
-    <p class="popup-hint" onclick="closePopup(event)" style="cursor:pointer;">toca para cerrar</p>
-  </div>
-</div>
 </body>
 </html>
