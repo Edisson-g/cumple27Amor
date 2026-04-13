@@ -105,15 +105,32 @@
     .popup-card {
       background:linear-gradient(145deg,#2d0a4e,#1a0a2e);
       border:1px solid rgba(255,111,183,0.4);
-      border-radius:22px; padding:36px 28px;
-      max-width:290px; width:88%; text-align:center;
+      border-radius:22px; padding:20px 20px;
+      max-width:300px; width:88%;
+      height: auto;
+      max-height: 38vh;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      text-align:center;
       box-shadow:0 0 60px rgba(255,111,183,0.25);
       animation:pu 0.45s cubic-bezier(0.34,1.56,0.64,1); cursor:default;
     }
     @keyframes pu{from{transform:scale(0.65);opacity:0;}to{transform:scale(1);opacity:1;}}
-    .popup-emoji{font-size:2.5rem;margin-bottom:12px;}
-    .popup-text{font-size:1rem;line-height:1.75;color:#fff0f8;margin-bottom:20px;}
-    .popup-hint{font-size:0.7rem;color:rgba(255,255,255,0.28);letter-spacing:1px;text-transform:uppercase;}
+    .popup-emoji{font-size:1.8rem;margin-bottom:8px;flex-shrink:0;}
+    .popup-scroll{
+      overflow-y: auto;
+      flex: 1;
+      min-height: 0;
+      padding-right: 4px;
+      margin-bottom: 16px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,111,183,0.4) transparent;
+    }
+    .popup-scroll::-webkit-scrollbar{ width:4px; }
+    .popup-scroll::-webkit-scrollbar-track{ background:transparent; }
+    .popup-scroll::-webkit-scrollbar-thumb{ background:rgba(255,111,183,0.4); border-radius:4px; }
+    .popup-text{font-size:0.82rem;line-height:1.7;color:#fff0f8;white-space:pre-wrap;}
+    .popup-hint{font-size:0.7rem;color:rgba(255,255,255,0.28);letter-spacing:1px;text-transform:uppercase;flex-shrink:0;}
   </style>
 </head>
 <body>
@@ -129,7 +146,17 @@
 <div id="popup-overlay" onclick="closePopup()">
   <div class="popup-card" onclick="event.stopPropagation()">
     <div class="popup-emoji">💖</div>
-    <p class="popup-text">Hace tantos años te conocí y ahora estamos viviendo esto juntos.</p>
+    <div class="popup-scroll">
+      <p class="popup-text">Hace un poquito menos de 27 años te conocí y ahora estamos viviendo esto juntos.
+
+Solo quería decirte que me siento muy orgulloso de ti y de la persona que te has convertido, y todo lo que eso significa para mi vida... porque tú eres la persona a la que más amo.
+
+Hoy celebramos tus 27 añitos de vida, por los cuales me siento muy honrado de compartirlos y vivirlos juntos contigo.
+
+Quiero desearte lo mejor siempre. Que Dios te regale muchos años de vida para que podamos seguir disfrutando de estos pequeños momentos juntos. 🌹
+
+Con todo mi amor, siempre. 💖</p>
+    </div>
     <p class="popup-hint" onclick="closePopup()" style="cursor:pointer;">toca para cerrar</p>
   </div>
 </div>
